@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body ng-app="ToDo">
+
+    <input type="text" ng-model="query" />
+    {{task}}
+
+    <br />
+
+    <select ng-model="order">
+        <option value="name">By name</option>
+        <option value="adresse">By adresse</option>
+    </select>
+
+    <!--  <div ng-init="users=[ {username:'Marc', contenu:'bodyBuilder'},{username:'jhon', contenu:'programming'},
+                         {username:'Jervino', contenu:'football'}]">
+  -->
+    <div ng-controller="MainController as main">
+        <div ng-repeat="comment in main.comments | filter:{name : query} | orderBy :order">
+            <p><strong>{{comment.name}}</strong></p>
+            <p>{{comment.address}}</p>
+        </div>
+        <form ng-submit=main.addToComments(main.addComment)>
+            <input ng-model="main.addComment">
+            <input type="submit" value="Add to the Comments Array" />
+        </form>
+        
+    </div>
+     
+    <div ng-controller="MainController as main" >
+            <h3>Things i need to do</h3>
+       <div ng-repeat="does in main.do.list track by $index">
+           <li>{{does}}</li>
+       </div>
+       <input type="text" placeholder="add activity" ng-model="main.activity">
+       <button ng-click="main.add(main.do.list,main.activity)">Add</button>
+       <h3>Books i have</h3>
+       <div ng-repeat="boo in main.books.list track by $index">
+            <li>{{boo}}</li>
+        </div>
+       <input type="text" placeholder="add a book" ng-model="main.book">
+       <button ng-click="main.add(main.books.list,main.book)">Add</button>
+    </div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+    <!--les modules-->
+    <script src="js/app.js"></script>
+    <!--les controlleurs-->
+    <script src="js/controllers/MainController.js"></script>
+</body>
+
+</html>
