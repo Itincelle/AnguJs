@@ -67,8 +67,12 @@ app
             console.log(this.comments);
         }
         
-        this.do={list:["play xbox","play football","take a bath"]}
-        this.books={list:[]}
+        this.do={
+            title:" What you have to Do",
+            list:["play xbox","play football","take a bath"]}
+        this.books={
+            title:" Your Books",
+            list:[]}
         
         this.add=function(itemList, item){
           itemList.push(item);
