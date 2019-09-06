@@ -1,5 +1,5 @@
 app
-    .controller('MainController', function () {
+    .controller('MainController', ['$http', function ($http) {
 
         this.comments = [
             {
@@ -66,23 +66,44 @@ app
             addComment = '';
             console.log(this.comments);
         }
-        
-        this.do={
-            title:" What you have to Do",
-            list:["play xbox","play football","take a bath"]}
-        this.books={
-            title:" Your Books",
-            list:[]}
-        
-        this.add=function(itemList, item){
-          itemList.push(item);
-          
-       //   console.log("added item "+item)
-        }
-         
-        
 
-    })
+        this.do = {
+            title: " What you have to Do",
+            list: ["play xbox", "play football", "take a bath"]
+        }
+        this.books = {
+            title: " Your Books",
+            list: []
+        }
+
+
+        function hasOnlyNum(item) {
+            return /^[0-9]*$/.test(item)
+        }
+
+        this.addO = function (itemList, item) {
+            //ISBN number 10 or 13 numbers
+            if ((item.length == 10 || item.length == 13) && hasOnlyNum(item)) {
+                console.log("ISBN");
+                $http.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + item).then(function successCallback(response) {
+
+                    itemList.push("Title : " + response.data.items[0].volumeInfo.title + " /// Authors : " + response.data.items[0].volumeInfo.authors)
+                },
+                    function (response) {
+                        console.log("prb de request: " + response.status)
+                        //lien important : https://stackoverflow.com/questions/45766361/undefined-http-data-when-resolved-with-then-method
+                    }
+                );
+            } else {
+                console.log("Non ISBN");
+                itemList.push(item)
+            }
+
+        }
+
+
+
+    }])
 
 
 
