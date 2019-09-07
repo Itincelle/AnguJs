@@ -1,7 +1,10 @@
 app
-    .controller('MainController', ['$http', function ($http) {
+    .controller('MainController', function ($http,nyt) {
 
-        this.comments = [
+        nyt.service1()
+    
+        
+          this.comments = [
             {
                 "name": "Barry Arnold",
                 "gender": "male",
@@ -103,7 +106,7 @@ app
 
 
 
-    }])
+    })
 
 
 
