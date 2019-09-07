@@ -1,8 +1,8 @@
 app
     .controller('MainController', function ($http,nyt) {
-
-        nyt.service1()
-    
+        this.dat={ }
+       this.dat= nyt.service1()
+      alert(this.dat)
         
           this.comments = [
             {
